@@ -1,8 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Roboto:wght@100;400&display=swap");
+:root {
+  --color-one: #071626;
+  --color-two: #d4e4f5;
+  --color-three: rgb(246, 132, 25);
+  --white: #f9f9f9;
+  --off-white: #f7eeee;
+}
 
 .bg {
-  background-color: #071626;
-  color: #d4e4f5;
+  background-color: var(--color-one);
+  color: var(--color-two);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -17,7 +24,7 @@
   font-weight: 100;
 }
 h1 {
-  color: rgb(246, 132, 25);
+  color: var(--color-three);
   font-family: "Robot";
   font-weight: 400;
 }
@@ -29,10 +36,10 @@ p {
   font-size: 12px;
   padding-left: 10px;
   margin-top: -5px;
-  color: #f9f9f9;
+  color: var(--white);
   text-decoration: underline;
   text-underline-position: under;
 }
 .link:hover {
-  color: #f7eeee;
+  color: var(--off-white);
 }
