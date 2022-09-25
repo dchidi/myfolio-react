@@ -26,14 +26,14 @@ export function AuthContextProvider(props) {
   // useState to manage update of data in the global context. This triggers reload on any component that subscribes to it
   const [data, setData] = useState(initData);
 
-  //   This function call the setData function from useState and spread its previous and new object value to get an update view
+  // This function call the setData function from useState and spread its previous and new object value to get an update view
   function updateContext(ctx) {
     setData((prev) => {
       return { ...prev, ...ctx };
     });
   }
 
-  //   create an object to be passed as value into the component provided by createContext. Exposes all functions that the other
+  // create an object to be passed as value into the component provided by createContext. Exposes all functions that the other
   // components should have access to as well as properties
   const context = {
     ...data,
@@ -50,5 +50,4 @@ export function AuthContextProvider(props) {
 }
 
 // export the global context as the default
-
 export default AuthContext;

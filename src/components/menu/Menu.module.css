@@ -41,7 +41,6 @@
 }
 
 /* Floating/Side menu Style */
-
 ul {
   list-style: none;
 }
@@ -56,4 +55,5 @@ li {
 }
 .off {
   color: var(--color-four-dark);
+  font-size: 20px;
 }

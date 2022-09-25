@@ -21,9 +21,10 @@ import {
 import style from "./Menu.module.css";
 
 const MobileMenu = (props) => {
+  // Manage toggle state
   const [showBasic, setShowBasic] = useState(false);
-  const data = props.data;
 
+  // Logout user
   const _logout = () => {
     setShowBasic(!showBasic);
     props.logout();
@@ -32,12 +33,13 @@ const MobileMenu = (props) => {
   return (
     <MDBNavbar expand="lg" light bgColor="light">
       <MDBContainer fluid>
+        {/* Logo */}
         <MDBNavbarBrand href="#" className={style.link}>
           <span className={style.logoTextSub1}>My</span>
           <span className={style.logoTextSub2}>folio</span>
         </MDBNavbarBrand>
         {/* Check if user is logged in */}
-        {!data?.isLoggedIn ? (
+        {!props.data?.isLoggedIn ? (
           <>
             {/* Login button */}
             <MDBBtn
@@ -53,9 +55,9 @@ const MobileMenu = (props) => {
           <>
             {/* User name */}
             <span>
-              {data?.username.length > 8
-                ? data?.username.slice(0, 8) + "..."
-                : data?.username}
+              {props.data?.username.length > 8
+                ? props.data.username.slice(0, 8) + "..."
+                : props.data?.username}
             </span>
             {/* Toggle button */}
             <MDBNavbarToggler

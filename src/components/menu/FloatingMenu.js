@@ -12,19 +12,23 @@ import { logoutAuthCtrl } from "../../controllers/CtrlAuthentication";
 import style from "./Menu.module.css";
 
 const FloatingMenu = (props) => {
+  // Create reference to authContext global variables
   const authCtx = useContext(AuthContext);
+  // Manage component state
   const [data, setData] = useState(null);
 
-  // useEffect listen to when changes occur in authCtx by any subscriber
+  // Listen to changes on authCtx by any subscriber and update this component
   useEffect(() => {
     setData(authCtx);
   }, [authCtx]);
 
+  // Call CtrlAuthentication functions
   const logoutHandler = () => {
-    // call authController logout function
+    // Pass functions as parameters
     logoutAuthCtrl(setData, authCtx.updateContext);
   };
   return (
+    // Check for login
     data?.isLoggedIn && (
       <ul className={`${style.floatingMenu} mt-5 mx-3 d-none d-sm-block`}>
         <li>

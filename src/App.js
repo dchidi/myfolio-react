@@ -1,22 +1,23 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.module.css";
-import Dashboard from "./pages/dashboard/Dashboard";
-import Folio from "./pages/folio/Folio";
-import Settings from "./pages/settings/Settings";
 import PageNotFound from "./pages/PageNotFound";
+import AppLayout from "./pages/AppLayout";
 
+// This component manages all routes
 function App() {
+  // All routes apart from PageNotFound goes through AppLayout component with a props called page to indicate
+  // which subcomponent to display.
   return (
     <Routes>
       {/* home page */}
-      <Route path="/" element={<Dashboard page="index" />} exact />
-      <Route path="/home" element={<Dashboard page="index" />} />
-      <Route path="/index" element={<Dashboard page="index" />} />
+      <Route path="/" element={<AppLayout page="index" />} exact />
+      <Route path="/home" element={<AppLayout page="index" />} />
+      <Route path="/index" element={<AppLayout page="index" />} />
       {/* folio page */}
-      <Route path="/folio" element={<Folio page="folio" />} />
+      <Route path="/folio" element={<AppLayout page="folio" />} />
       {/* Settings page */}
-      <Route path="/settings" element={<Settings page="settings" />} />
+      <Route path="/settings" element={<AppLayout page="settings" />} />
       {/* Page not found */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
