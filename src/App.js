@@ -10,13 +10,13 @@ function App() {
   return (
     <Routes>
       {/* home page */}
-      <Route path="/" element={<Dashboard />} exact />
-      <Route path="/home" element={<Dashboard />} />
-      <Route path="/index" element={<Dashboard />} />
+      <Route path="/" element={<Dashboard page="index" />} exact />
+      <Route path="/home" element={<Dashboard page="index" />} />
+      <Route path="/index" element={<Dashboard page="index" />} />
       {/* folio page */}
-      <Route path="/folio" element={<Folio />} />
+      <Route path="/folio" element={<Folio page="folio" />} />
       {/* Settings page */}
-      <Route path="/settings" element={<Settings />} />
+      <Route path="/settings" element={<Settings page="settings" />} />
       {/* Page not found */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>

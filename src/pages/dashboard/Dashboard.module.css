@@ -1,0 +1,2 @@
+/* call the base css component to avoid repeatition */
+@import url("../components/css/BaseCssModule.css");

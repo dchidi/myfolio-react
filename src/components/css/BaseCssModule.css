@@ -2,7 +2,10 @@
 :root {
   --color-one: #071626;
   --color-two: #d4e4f5;
-  --color-three: rgb(246, 132, 25);
+  --color-two-dark: #547eac;
+  --color-three: #f68419;
+  --color-three-dark: #be6009;
+  --color-four-dark: rgb(59, 10, 73);
   --white: #f9f9f9;
   --off-white: #f7eeee;
 }

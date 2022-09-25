@@ -1,0 +1,59 @@
+/* call the base css component to avoid repeatition */
+@import url("../css/BaseCssModule.css");
+
+.logoTextSub1 {
+  color: var(--color-two);
+}
+.logoTextSub2 {
+  color: var(--color-three);
+  font-family: Lato;
+  font-weight: 300;
+  font-variant-caps: all-small-caps;
+  position: relative;
+}
+.logoTextSub2::after {
+  content: " ";
+  padding: 2px;
+  border-radius: 50%;
+  background-color: var(--color-two);
+  position: absolute;
+  top: 2px;
+}
+.link {
+  background-color: var(--color-one);
+  padding: 0 10px;
+  border-radius: 10px 0px;
+}
+
+.nav {
+  color: var(--color-one);
+  display: block;
+  margin-bottom: 10px;
+}
+.desktopNav {
+  color: var(--color-two-dark);
+  font-size: 20px;
+}
+.nav:hover,
+.desktopNav:hover,
+.active {
+  color: var(--color-three-dark);
+}
+
+/* Floating/Side menu Style */
+
+ul {
+  list-style: none;
+}
+ul.floatingMenu {
+  padding: 0;
+  margin: 0;
+  border: 2px solid var(--color-two);
+  border-radius: 50px;
+}
+li {
+  padding: 10px;
+}
+.off {
+  color: var(--color-four-dark);
+}
