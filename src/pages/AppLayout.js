@@ -20,7 +20,7 @@ const AppLayout = (props) => {
       <div className="d-flex">
         <FloatingMenu page={props.page} />
         {/* Render sub page components */}
-        <div className="p-3">{_page[props.page]}</div>
+        <div className="flex-fill">{_page[props.page]}</div>
       </div>
     </>
   );

@@ -32,7 +32,7 @@ const Menu = (props) => {
   return (
     <>
       {/* Visible only on mobile devices */}
-      <div className="d-block d-sm-none">
+      <div className="d-block d-sm-none fixed-top">
         <MobileMenu
           data={data}
           logout={logoutHandler}
@@ -41,7 +41,7 @@ const Menu = (props) => {
         />
       </div>
       {/* Visible on tablet and destop devices */}
-      <div className="d-none d-sm-block">
+      <div className="d-none d-sm-block fixed-top">
         <OtherMenu
           data={data}
           logout={logoutHandler}

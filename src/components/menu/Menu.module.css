@@ -46,11 +46,12 @@ ul {
 }
 ul.floatingMenu {
   padding: 0;
-  margin: 0;
+  margin: 40vh 0;
   border: 2px solid var(--color-two);
   border-radius: 50px;
+  width: 45px;
 }
-li {
+ul.floatingMenu li {
   padding: 10px;
 }
 .off {

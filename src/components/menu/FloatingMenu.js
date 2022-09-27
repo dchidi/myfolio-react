@@ -28,54 +28,58 @@ const FloatingMenu = (props) => {
     logoutAuthCtrl(setData, authCtx.updateContext);
   };
   return (
-    // Check for login
-    data?.isLoggedIn && (
-      <ul className={`${style.floatingMenu} mt-5 mx-3 d-none d-sm-block`}>
-        <li>
-          <Link
-            to="/"
-            className={
-              props.page === "index"
-                ? `${style.desktopNav} ${style.active}`
-                : `${style.desktopNav}`
-            }
-          >
-            <FontAwesomeIcon icon={faHouseUser} />
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/folio"
-            className={
-              props.page === "folio"
-                ? `${style.desktopNav} ${style.active}`
-                : `${style.desktopNav}`
-            }
-          >
-            <FontAwesomeIcon icon={faLayerGroup} />
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/settings"
-            className={
-              props.page === "settings"
-                ? `${style.desktopNav} ${style.active}`
-                : `${style.desktopNav}`
-            }
-          >
-            <FontAwesomeIcon icon={faGears} />
-          </Link>
-        </li>
-        <li>
-          <FontAwesomeIcon
-            icon={faPowerOff}
-            className={style.off}
-            onClick={logoutHandler}
-          />
-        </li>
-      </ul>
-    )
+    <ul className={`${style.floatingMenu} mx-3 d-none d-sm-block fixed-top`}>
+      <li>
+        <Link
+          to="/"
+          className={
+            props.page === "index"
+              ? `${style.desktopNav} ${style.active}`
+              : `${style.desktopNav}`
+          }
+        >
+          <FontAwesomeIcon icon={faHouseUser} />
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/folio"
+          className={
+            props.page === "folio"
+              ? `${style.desktopNav} ${style.active}`
+              : `${style.desktopNav}`
+          }
+        >
+          <FontAwesomeIcon icon={faLayerGroup} />
+        </Link>
+      </li>
+      {
+        // Check for login
+        data?.isLoggedIn && (
+          <>
+            <li>
+              <Link
+                to="/settings"
+                className={
+                  props.page === "settings"
+                    ? `${style.desktopNav} ${style.active}`
+                    : `${style.desktopNav}`
+                }
+              >
+                <FontAwesomeIcon icon={faGears} />
+              </Link>
+            </li>
+            <li>
+              <FontAwesomeIcon
+                icon={faPowerOff}
+                className={style.off}
+                onClick={logoutHandler}
+              />
+            </li>
+          </>
+        )
+      }
+    </ul>
   );
 };
 
