@@ -65,13 +65,13 @@ const Folio = (props) => {
           </MDBCol>
           {/* Right */}
           <MDBCol className="col-4">
-            <ul className="d-flex flex-column align-items-center">
-              <li>
+            <ul className={`d-flex flex-column align-items-center`}>
+              <li className={style.aside}>
                 <MDBBtn color="warning" className="btn-sm py-0 my-4">
                   <FontAwesomeIcon icon={faCaretUp} />
                 </MDBBtn>
               </li>
-              <li>
+              <li className={style.aside}>
                 <img
                   src={require(`../../image/projects/prj1.png`)}
                   width="90%"
@@ -79,7 +79,7 @@ const Folio = (props) => {
                 />
                 <p className={style.thumbnailItem}>Discount Shop</p>
               </li>
-              <li>
+              <li className={style.aside}>
                 <img
                   src={require(`../../image/projects/prj1.png`)}
                   width="90%"
@@ -87,7 +87,7 @@ const Folio = (props) => {
                 />
                 <p className={style.thumbnailItem}>Discount Shop</p>
               </li>
-              <li>
+              <li className={style.aside}>
                 <MDBBtn color="warning" className="btn-sm py-0">
                   <FontAwesomeIcon icon={faCaretDown} />
                 </MDBBtn>
