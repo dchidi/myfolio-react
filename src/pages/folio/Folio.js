@@ -37,6 +37,7 @@ const Folio = (props) => {
               <h3>Description</h3>
               <p>content goes here</p>
             </div>
+            {/* Features */}
             <div className={style.features}>
               <h3 className="mb-3">Features</h3>
               <ul className={style.featuresUl}>
@@ -60,6 +61,15 @@ const Folio = (props) => {
                     [more ++]
                   </Link>
                 </li>
+              </ul>
+            </div>
+            {/* Technology Stack */}
+            <div>
+              <h3 className="mb-3">Tech Stack</h3>
+              <ul className={style.stack}>
+                <li className={style.stackItem}>ReactJS</li>
+                <li className={style.stackItem}>Python</li>
+                <li className={style.stackItem}>MongoDB</li>
               </ul>
             </div>
           </MDBCol>
