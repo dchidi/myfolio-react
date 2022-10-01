@@ -1,14 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { MDBBtn, MDBCardImage, MDBCol } from "mdb-react-ui-kit";
+import { MDBBtn, MDBCol } from "mdb-react-ui-kit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown,
   faCaretUp,
   faCheckDouble,
-  faGifts,
-  faMailForward,
-  faMessage,
 } from "@fortawesome/free-solid-svg-icons";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import style from "./Folio.module.css";
@@ -17,7 +14,6 @@ const Folio = (props) => {
   return (
     <div className={style.folio}>
       <BreadCrumb page="Folio" />
-      {/* <div className="d-flex offset-md-1 offset-lg-2 col-md-9 col-lg-8 ms-3 my-4"> */}
       <div className="d-flex justify-content-center">
         <div className="d-flex justify-content-around col-md-offset-2 col-lg-offset-3 col-md-8 col-lg-6">
           {/* Details */}
@@ -32,6 +28,16 @@ const Folio = (props) => {
               <Link to="" className={style.link}>
                 url to web page
               </Link>
+            </div>
+
+            {/* Technology Stack */}
+            <div className="my-4">
+              <h3 className="mb-3">Tech Stack</h3>
+              <ul className={style.stack}>
+                <li className={style.stackItem}>ReactJS</li>
+                <li className={style.stackItem}>Python</li>
+                <li className={style.stackItem}>MongoDB</li>
+              </ul>
             </div>
             <div className={style.descriptions}>
               <h3>Description</h3>
@@ -61,15 +67,6 @@ const Folio = (props) => {
                     [more ++]
                   </Link>
                 </li>
-              </ul>
-            </div>
-            {/* Technology Stack */}
-            <div>
-              <h3 className="mb-3">Tech Stack</h3>
-              <ul className={style.stack}>
-                <li className={style.stackItem}>ReactJS</li>
-                <li className={style.stackItem}>Python</li>
-                <li className={style.stackItem}>MongoDB</li>
               </ul>
             </div>
           </MDBCol>

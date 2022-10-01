@@ -1,0 +1,17 @@
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f9f9f9;
+  border: 1px solid #bbbaba;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 20px 0px;
+  min-height: 45px;
+}
+.featureItem {
+  padding: 5px 10px;
+  margin: 4px;
+  background-color: #d18c15;
+  color: #000;
+  border-radius: 5%;
+}

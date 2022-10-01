@@ -1,0 +1,29 @@
+@import url("../css/BaseCssModule.css");
+
+.inputBox {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f9f9f9;
+  border: 1px solid #bbbaba;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 20px 0px;
+  min-height: 45px;
+}
+.items {
+  cursor: pointer;
+}
+.items,
+.pillsInput {
+  background-color: var(--color-five);
+  color: var(--color-one);
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin: 4px;
+}
+
+.pillsInput {
+  text-indent: 10px;
+  border: none;
+  outline: none;
+}
