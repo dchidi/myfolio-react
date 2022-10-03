@@ -3,7 +3,7 @@
 .inputBox {
   display: flex;
   flex-wrap: wrap;
-  background-color: #f9f9f9;
+  background-color: #fff;
   border: 1px solid #bbbaba;
   border-radius: 4px;
   padding: 10px;
@@ -15,7 +15,7 @@
 }
 .items,
 .pillsInput {
-  background-color: var(--color-five);
+  background-color: var(--color-six);
   color: var(--color-one);
   padding: 5px 10px;
   border-radius: 10px;

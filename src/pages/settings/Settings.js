@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import style from "./Settings.module.css";
-import AddProject from "./AddProject";
+import Projects from "./Projects";
 import UpdateProfile from "./UpdateProfile";
 import UpdatePassword from "./UpdatePassword";
 
@@ -44,7 +44,7 @@ const Settings = (props) => {
                   onClick={() => handleFillClick("tab1")}
                   active={fillActive === "tab1"}
                 >
-                  ADD PROJECT
+                  PROJECT
                 </MDBTabsLink>
               </MDBTabsItem>
               <MDBTabsItem>
@@ -52,7 +52,7 @@ const Settings = (props) => {
                   onClick={() => handleFillClick("tab2")}
                   active={fillActive === "tab2"}
                 >
-                  UPDATE PROFILE
+                  PROFILE
                 </MDBTabsLink>
               </MDBTabsItem>
               <MDBTabsItem>
@@ -67,7 +67,7 @@ const Settings = (props) => {
 
             <MDBTabsContent>
               <MDBTabsPane show={fillActive === "tab1"}>
-                <AddProject />
+                <Projects />
               </MDBTabsPane>
               <MDBTabsPane show={fillActive === "tab2"}>
                 <UpdateProfile />

@@ -43,7 +43,9 @@ const InputPills = (props) => {
     // put the text inside the element
     el.appendChild(node);
     // listen to click event
-    el.onclick = onClickEventHandler;
+    el.onclick = deleteItemHandler;
+    // add random id's for easy deletion of an item
+    el.setAttribute("id", Math.random());
     // add class name to the element for styling
     el.classList.add(style.items);
     // add everything to the inputPill element which is a div
@@ -62,8 +64,11 @@ const InputPills = (props) => {
   };
 
   // Manage what happens on click
-  const onClickEventHandler = (e) => {
-    // console.log(e);
+  const deleteItemHandler = (e) => {
+    // get response from window.confirm
+    const status = window.confirm("Click OK to delete item");
+    // if status is true, delete item
+    status && document.getElementById(e.target.id).remove();
   };
 
   // Manage when inputfield shows on the screen
