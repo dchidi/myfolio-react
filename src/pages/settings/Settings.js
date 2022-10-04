@@ -17,14 +17,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import style from "./Settings.module.css";
-import Projects from "./Projects";
-import UpdateProfile from "./UpdateProfile";
-import UpdatePassword from "./UpdatePassword";
+import Projects from "./pages/Projects";
+import Profile from "./pages/Profile";
+import UpdatePassword from "./pages/UpdatePassword";
 
 const Settings = (props) => {
   const [fillActive, setFillActive] = useState("tab1");
 
-  const handleFillClick = (value: string) => {
+  const handleFillClick = (value) => {
     if (value === fillActive) {
       return;
     }
@@ -70,7 +70,7 @@ const Settings = (props) => {
                 <Projects />
               </MDBTabsPane>
               <MDBTabsPane show={fillActive === "tab2"}>
-                <UpdateProfile />
+                <Profile />
               </MDBTabsPane>
               <MDBTabsPane show={fillActive === "tab3"}>
                 <UpdatePassword />

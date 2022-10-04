@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Item from "./listItem/Item";
+import Item from "../components/Item";
 import { MDBBtn } from "mdb-react-ui-kit";
-import AddProject from "./form/AddProject";
+import AddProject from "../form/AddProject";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 

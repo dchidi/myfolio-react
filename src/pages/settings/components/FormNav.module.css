@@ -1,0 +1,21 @@
+ul.nav {
+  padding: 0;
+  margin: 0;
+}
+ul.nav li {
+  padding: 6px 18px 4px 18px;
+  background-color: #eee;
+  color: rgb(47, 2, 63);
+  box-shadow: 2px 2px 2px #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+ul.nav li.active {
+  background-color: #3b324e;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+}
