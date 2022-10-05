@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import style from "./InputPills.module.css";
 import { MDBBtn } from "mdb-react-ui-kit";
 
+// USAGE
+// <InputPills title="anyTitle" payload={callbackFunction} />
 const InputPills = (props) => {
   // Component States
   const [_, setInputPillState] = useState(null);
@@ -121,17 +123,24 @@ const InputPills = (props) => {
   return (
     <>
       <h3>{props.title}</h3>
-      <MDBBtn
-        outline
-        color="dark"
-        className="btn-sm me-2"
-        onClick={inputFieldHandler}
-      >
-        ADD
-      </MDBBtn>
-      <MDBBtn outline color="danger" className="btn-sm" onClick={clearAllItems}>
-        REMOVE ALL
-      </MDBBtn>
+      <div className="d-flex">
+        <MDBBtn
+          outline
+          color="dark"
+          className="btn-sm me-2"
+          onClick={inputFieldHandler}
+        >
+          ADD
+        </MDBBtn>
+        <MDBBtn
+          outline
+          color="danger"
+          className="btn-sm"
+          onClick={clearAllItems}
+        >
+          REMOVE ALL
+        </MDBBtn>
+      </div>
       <div className={style.inputBox} id={compId}></div>
     </>
   );

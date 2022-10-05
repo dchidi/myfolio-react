@@ -57,15 +57,9 @@ const Dashboard = (props) => {
               <div className={style.skills}>
                 <h3>Skill</h3>
                 <ul>
-                  <li>
-                    Html & Css<span className={style.rating}>0/10</span>
-                  </li>
-                  <li>
-                    ReactJS<span className={style.rating}>0/10</span>
-                  </li>
-                  <li>
-                    Python<span className={style.rating}>0/10</span>
-                  </li>
+                  <li>Html & Css</li>
+                  <li>ReactJS</li>
+                  <li>Python</li>
                   <li>
                     <Link to="" className={style.more}>
                       [more ++]
