@@ -6,11 +6,17 @@ import {
   MDBTable,
   MDBTableHead,
   MDBTableBody,
+  MDBContainer,
 } from "mdb-react-ui-kit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeftLong,
   faArrowRightLong,
+  faCancel,
+  faCheck,
+  faCheckDouble,
+  faTrash,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import InputPills from "../../../components/FeaturesInput/InputPills";
 import style from "./ProfileForm.module.css";
@@ -46,6 +52,16 @@ const DIRECTION_BTN = (props) => {
   }
 
   return btnContainer;
+};
+
+const Delete_BTN = (props) => {
+  return (
+    <div className="d-flex justify-content-end">
+      <MDBBtn className="btn-sm px-1 py-0 mb-2" outline color="dark">
+        <FontAwesomeIcon icon={faXmark} />
+      </MDBBtn>
+    </div>
+  );
 };
 
 // BIO-DATA
@@ -115,33 +131,13 @@ export const EDUCATION_FORM = (props) => {
               ADD
             </MDBBtn>
           </div>
-          <div style={{ backgroundColor: "yellow", width: "100vh" }}>
-            <MDBTable align="middle" responsive>
-              <MDBTableHead>
-                <tr>
-                  <th>School</th>
-                  <th>Degree</th>
-                  <th>Year</th>
-                  <th>Actions</th>
-                </tr>
-              </MDBTableHead>
-              <MDBTableBody>
-                <tr>
-                  <td>Griffith College</td>
-                  <td>
-                    Software engineer
-                    <span className="text-muted mb-0 ps-3">Msc</span>
-                  </td>
-                  <td>2022</td>
-                  <td>
-                    <MDBBtn color="link" rounded size="sm">
-                      Delete
-                    </MDBBtn>
-                  </td>
-                </tr>
-              </MDBTableBody>
-            </MDBTable>
-          </div>
+          {/* List */}
+          <MDBCard className="pt-4 px-4">
+            <Delete_BTN />
+            <h3>Griffith College - Msc</h3>
+            <h3>2022</h3>
+            <p>Mechanical Engineering Services and Mathematics</p>
+          </MDBCard>
 
           <div className="d-flex justify-content-end mt-5">
             {<DIRECTION_BTN tag={["NEXT", "PREVIOUS"]} />}
@@ -175,30 +171,15 @@ export const WORK_EXPERIENCE_FORM = (props) => {
               SAVE JOB
             </MDBBtn>
           </div>
-          {/* <MDBCard className="p-4"> */}
-          <MDBTable align="middle" responsive>
-            <MDBTableHead>
-              <tr>
-                <th scope="col">Organization</th>
-                <th scope="col">Start</th>
-                <th scope="col">End</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
-              <tr>
-                <td>Unilever Nig Plc</td>
-                <td>2020</td>
-                <td>2022</td>
-                <td>
-                  <MDBBtn color="link" rounded size="sm">
-                    Delete
-                  </MDBBtn>
-                </td>
-              </tr>
-            </MDBTableBody>
-          </MDBTable>
-          {/* </MDBCard> */}
+          {/* List */}
+          <MDBCard className="pt-4 px-4">
+            <Delete_BTN />
+            <h3>Unilever Nig Plc</h3>
+            <p>
+              Data Analyst - <span>2020 - 2022</span>
+            </p>
+          </MDBCard>
+
           <div className="d-flex justify-content-end mt-5">
             {<DIRECTION_BTN tag={["NEXT", "PREVIOUS"]} />}
           </div>
@@ -224,28 +205,13 @@ export const CERTIFICATION_FORM = (props) => {
               ADD
             </MDBBtn>
           </div>
-          {/* <MDBCard className="p-4"> */}
-          <MDBTable align="middle" responsive>
-            <MDBTableHead>
-              <tr>
-                <th scope="col">Certificate</th>
-                <th scope="col">Year</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
-              <tr>
-                <td>Oracle Certified Associate (OCA)</td>
-                <td>2020</td>
-                <td>
-                  <MDBBtn color="link" rounded size="sm">
-                    Delete
-                  </MDBBtn>
-                </td>
-              </tr>
-            </MDBTableBody>
-          </MDBTable>
-          {/* </MDBCard> */}
+          {/* List */}
+          <MDBCard className="pt-4 px-4">
+            <Delete_BTN />
+            <h3>2022</h3>
+            <p>Oracle Certified Associate - OCA</p>
+          </MDBCard>
+
           <div className="d-flex justify-content-end mt-5">
             {<DIRECTION_BTN tag={["PREVIOUS"]} />}
           </div>
