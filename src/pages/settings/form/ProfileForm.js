@@ -115,33 +115,34 @@ export const EDUCATION_FORM = (props) => {
               ADD
             </MDBBtn>
           </div>
-          {/* <MDBCard className="p-4"> */}
-          <MDBTable align="middle" responsive>
-            <MDBTableHead>
-              <tr>
-                <th scope="col">School</th>
-                <th scope="col">Degree</th>
-                <th scope="col">Year</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
-              <tr>
-                <td>Griffith College</td>
-                <td>
-                  Software engineer
-                  <span className="text-muted mb-0 ps-3">Msc</span>
-                </td>
-                <td>2022</td>
-                <td>
-                  <MDBBtn color="link" rounded size="sm">
-                    Delete
-                  </MDBBtn>
-                </td>
-              </tr>
-            </MDBTableBody>
-          </MDBTable>
-          {/* </MDBCard> */}
+          <div style={{ backgroundColor: "yellow", width: "100vh" }}>
+            <MDBTable align="middle" responsive>
+              <MDBTableHead>
+                <tr>
+                  <th>School</th>
+                  <th>Degree</th>
+                  <th>Year</th>
+                  <th>Actions</th>
+                </tr>
+              </MDBTableHead>
+              <MDBTableBody>
+                <tr>
+                  <td>Griffith College</td>
+                  <td>
+                    Software engineer
+                    <span className="text-muted mb-0 ps-3">Msc</span>
+                  </td>
+                  <td>2022</td>
+                  <td>
+                    <MDBBtn color="link" rounded size="sm">
+                      Delete
+                    </MDBBtn>
+                  </td>
+                </tr>
+              </MDBTableBody>
+            </MDBTable>
+          </div>
+
           <div className="d-flex justify-content-end mt-5">
             {<DIRECTION_BTN tag={["NEXT", "PREVIOUS"]} />}
           </div>

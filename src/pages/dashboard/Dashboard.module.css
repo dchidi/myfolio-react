@@ -24,11 +24,6 @@
   font-size: 25px;
   color: var(--color-one);
 }
-.middle {
-  justify-content: center;
-  height: 55vh;
-  width: 100%;
-}
 .resetUl ul {
   padding: 5px 0;
   margin: 0;

@@ -10,6 +10,30 @@ import {
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import style from "./Dashboard.module.css";
 
+// Image component
+const ProfileImage = (props) => {
+  // TODO:: image should come from contextAPI
+  const img = "chidi.jpg";
+  return (
+    <img
+      src={require(`../../image/profile/${img}`)}
+      alt="ProfileImage"
+      className={style.profilePics}
+      width={props.width}
+      height={props.height}
+    />
+  );
+};
+
+// ContactMe component
+const ContactMe = (props) => {
+  return (
+    <MDBBtn color="dark" outline className="btn-sm d-block mt-3">
+      contact me <FontAwesomeIcon icon={faMessage} />
+    </MDBBtn>
+  );
+};
+
 const Dashboard = (props) => {
   const {
     img,
@@ -39,7 +63,17 @@ const Dashboard = (props) => {
         </ul>
       </div>
 
-      <div className="d-flex justify-content-center mt-5">
+      {/* Mobile only -- Profile Image */}
+      <div className="d-flex justify-content-center d-block d-sm-none">
+        <div>
+          <ProfileImage width={200} height={300} />
+          <div className="d-flex justify-content-center">
+            <ContactMe />
+          </div>
+        </div>
+      </div>
+      {/* END */}
+      <div className="d-flex justify-content-center mt-3">
         <div className="d-flex justify-content-around col-md-offset-2 col-lg-offset-3 col-md-8 col-lg-6">
           {/* Left */}
           <MDBCol className={`${style.left} g-col-4`}>
@@ -90,13 +124,8 @@ const Dashboard = (props) => {
             </div>
           </MDBCol>
           {/* Profile Image */}
-          <MDBCol className={`${style.middle} g-col-4`}>
-            <img
-              src={require(`../../image/profile/${img}`)}
-              alt="ProfileImage"
-              className={style.profilePics}
-              width="230"
-            />
+          <MDBCol className={`${style.middle} g-col-4 d-none d-sm-block`}>
+            <ProfileImage width={230} height={"90%"} />
           </MDBCol>
           {/* Right */}
           <MDBCol className={`${style.right} g-col-4`}>
@@ -121,12 +150,10 @@ const Dashboard = (props) => {
                 <h3>Certifications</h3>
                 <div className={style.rightItem}>1</div>
               </div>
-              <div className={style.history}>
-                <div className={style.rightItem}>
-                  <MDBBtn color="dark" outline className="btn-sm">
-                    contact me <FontAwesomeIcon icon={faMessage} />
-                  </MDBBtn>
-                </div>
+              <div
+                className={`d-none d-sm-block ${style.history} ${style.rightItem}`}
+              >
+                <ContactMe />
               </div>
             </div>
           </MDBCol>
