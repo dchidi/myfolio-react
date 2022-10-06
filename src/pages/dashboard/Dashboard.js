@@ -129,7 +129,7 @@ const Dashboard = (props) => {
           </MDBCol>
           {/* Right */}
           <MDBCol className={`${style.right} g-col-4`}>
-            <div>
+            <div className="mt-n2">
               <div className={style.history}>
                 <h3>
                   Years of
