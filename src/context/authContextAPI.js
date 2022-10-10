@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 // Initialize context data for sharing without functions used to update the context data
 const defaultData = {
   isLoggedIn: false,
@@ -7,7 +7,6 @@ const defaultData = {
   refreshToken: null,
   deviceId: null,
   message: null,
-  profileForm: "BIO PAGE",
 };
 // Persist data on browser storage
 const local_storage = JSON.parse(localStorage.getItem("myfolio_auth"));

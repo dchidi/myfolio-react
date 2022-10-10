@@ -1,15 +1,18 @@
 import React, { useContext } from "react";
-import AuthContext from "../../../context/authContextAPI";
+import SettingsContext from "../../../context/settingsContext";
 import style from "./FormNav.module.css";
 
 export const NavItem = (props) => {
-  const ctx = useContext(AuthContext);
+  const ctx = useContext(SettingsContext);
   const pageClickedHandler = () => {
-    ctx.updateContext({ profileForm: props.title });
+    ctx.updateContext({
+      profile_current_page: props.title,
+      profile_position: props.position,
+    });
   };
   return (
     <li
-      className={props.currentForm === props.title ? style.active : ""}
+      className={props.currentForm === props.position ? style.active : ""}
       onClick={pageClickedHandler}
     >
       {props.position}

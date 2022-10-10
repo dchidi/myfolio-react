@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { MDBInput, MDBBtn, MDBCard } from "mdb-react-ui-kit";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,47 +8,72 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import InputPills from "../../../components/FeaturesInput/InputPills";
-import { addBio } from "../../../features/profile/profile_slice";
+import { addBio, addSkills } from "../../../features/profile/profile_slice";
+import { emailValidator } from "../../../controllers/validator";
+import SettingsContext from "../../../context/settingsContext";
 
 // DIRECTION BUTTON COMPONENT
 const DIRECTION_BTN = (props) => {
   let btnContainer;
-  const [next, previous] = props.tag;
-
+  const [tag1, tag2] = props.tag;
+  const ctx = useContext(SettingsContext);
+  // Initialize dispatcher
   const dispatch = useDispatch();
 
-  const eventHandler = (e) => {
-    e.preventDefault();
-    dispatch(addBio({ surname: "duru", firstname: "chidi" }));
+  const nextBtnClickHandler = (e) => {
+    // get data from formData function
+    const formData = props.formDataFn(e);
+    // console.log(formData);
+
+    // MANAGE ACTIONS PERFORMED
+    switch (props.name) {
+      case "BIO_FORM": {
+        // Destructure formData items
+        const { surname, firstname, email, phone, country, state, jobTitle } =
+          formData;
+        // VALIDATE INPUT
+        console.log(emailValidator(email));
+        // Upadate store record using addBio action creator
+        dispatch(addBio(formData));
+        break;
+      }
+      case "SKILLS_FORM": {
+        dispatch(addSkills(formData));
+        break;
+      }
+    }
+
+    console.log(ctx.profile_position);
+    if (ctx.profile_position < 5)
+      ctx.updateContext({ profile_position: ctx.profile_position + 1 });
   };
 
-  // Call redux action to update profile state
-  // Steps
-  // 1. Get current page
-  // 2. call action for that page
-
   if (props.tag.length === 1) {
-    if (next === "NEXT")
+    if (tag1 === "NEXT") {
       btnContainer = (
-        <MDBBtn outline color="dark" onClick={eventHandler}>
-          {next} <FontAwesomeIcon icon={faArrowRightLong} />
+        <MDBBtn outline color="dark" onClick={nextBtnClickHandler}>
+          {tag1} <FontAwesomeIcon icon={faArrowRightLong} />
         </MDBBtn>
       );
-    else
+    } else
       btnContainer = (
         <MDBBtn color="dark">
-          <FontAwesomeIcon icon={faArrowLeftLong} /> {next}
+          <FontAwesomeIcon icon={faArrowLeftLong} /> {tag1}
         </MDBBtn>
       );
   } else {
     btnContainer = (
       <>
         <MDBBtn color="dark" className="me-2">
-          <FontAwesomeIcon icon={faArrowLeftLong} /> {previous}
+          <FontAwesomeIcon icon={faArrowLeftLong} /> {tag1}
         </MDBBtn>
-        <MDBBtn outline color="dark">
-          {next} <FontAwesomeIcon icon={faArrowRightLong} />
-        </MDBBtn>
+        {tag2 === "NEXT" ? (
+          <MDBBtn outline color="dark" onClick={nextBtnClickHandler}>
+            {tag2} <FontAwesomeIcon icon={faArrowRightLong} />
+          </MDBBtn>
+        ) : (
+          <MDBBtn color="success">{tag2}</MDBBtn>
+        )}
       </>
     );
   }
@@ -72,8 +97,30 @@ export const BIO_FORM = (props) => {
   const { surname, firstname, email, phone, country, state, jobTitle } =
     useSelector((store) => store.profile.bio);
 
-  // Create a reference to form data
-  const surnameRef = useRef();
+  // Create a reference to input values in form
+  const surnameRef = useRef("");
+  const firstnameRef = useRef("");
+  const emailRef = useRef("");
+  const phoneRef = useRef("");
+  const countryRef = useRef("");
+  const stateRef = useRef("");
+  const jobTitleRef = useRef("");
+
+  // Handle form submission when next button is clicked
+  const formDataHandler = (e) => {
+    // prevent page from reloading
+    e.preventDefault();
+    // Get ref values and return them as an object
+    return {
+      surname: surnameRef.current.value,
+      firstname: firstnameRef.current.value,
+      email: emailRef.current.value,
+      phone: phoneRef.current.value,
+      country: countryRef.current.value,
+      state: stateRef.current.value,
+      jobTitle: jobTitleRef.current.value,
+    };
+  };
 
   return (
     <div className="mx-4 mt-4">
@@ -82,15 +129,18 @@ export const BIO_FORM = (props) => {
 
         <form>
           <div className="d-sm-flex">
+            {/* In MDBInput inputRef is used while for regular html elements ref is
+            used */}
             <MDBInput
               wrapperClass="mb-4 me-sm-2"
               label="Surname"
-              ref={surnameRef}
+              inputRef={surnameRef}
               defaultValue={surname}
             />
             <MDBInput
               wrapperClass="mb-4"
               label="First Name"
+              inputRef={firstnameRef}
               defaultValue={firstname}
             />
           </div>
@@ -98,25 +148,44 @@ export const BIO_FORM = (props) => {
             <MDBInput
               wrapperClass="mb-4 me-sm-2"
               label="Email Address"
+              inputRef={emailRef}
               defaultValue={email}
             />
-            <MDBInput wrapperClass="mb-4" label="Phone" defaultValue={phone} />
+            <MDBInput
+              wrapperClass="mb-4"
+              label="Phone"
+              inputRef={phoneRef}
+              defaultValue={phone}
+            />
           </div>
           <div className="d-sm-flex">
             <MDBInput
               wrapperClass="mb-4 me-sm-2"
               label="Country"
+              inputRef={countryRef}
               defaultValue={country}
             />
-            <MDBInput wrapperClass="mb-4" label="State" defaultValue={state} />
+            <MDBInput
+              wrapperClass="mb-4"
+              label="State"
+              inputRef={stateRef}
+              defaultValue={state}
+            />
           </div>
           <MDBInput
             wrapperClass="mb-4"
             label="Job Title"
+            inputRef={jobTitleRef}
             defaultValue={jobTitle}
           />
           <div className="d-flex justify-content-end">
-            {<DIRECTION_BTN tag={["NEXT"]} />}
+            {
+              <DIRECTION_BTN
+                tag={["NEXT"]}
+                formDataFn={formDataHandler}
+                name="BIO_FORM"
+              />
+            }
           </div>
         </form>
       </MDBCard>
@@ -126,16 +195,37 @@ export const BIO_FORM = (props) => {
 
 // SKILLS FORM
 export const SKILLS_FORM = (props) => {
+  // Get values from store
+  const defaultValue = useSelector((store) => store.profile.skills);
+  // Initialize component state with default value
+  const [skills, setSkills] = useState(defaultValue);
+
+  // Get values from input pill component
   const callbackFn = (data) => {
     console.log(data);
+    // update state value
+    setSkills(data);
   };
+
+  // Handle form submission when next button is clicked
+  const formDataHandler = (e) => {
+    // Get ref values and return them as an object
+    return skills;
+  };
+
   return (
     <div className="mx-4 mt-4">
       <MDBCard className={`my-4 px-5 py-4`}>
         <h3 className="mb-4">{props.name}</h3>
         <InputPills title="Enter Skills" payload={callbackFn} />
         <div className="d-flex justify-content-end">
-          {<DIRECTION_BTN tag={["NEXT", "PREVIOUS"]} />}
+          {
+            <DIRECTION_BTN
+              tag={["PREVIOUS", "NEXT"]}
+              formDataFn={formDataHandler}
+              name="SKILLS_FORM"
+            />
+          }
         </div>
       </MDBCard>
     </div>
@@ -170,7 +260,7 @@ export const EDUCATION_FORM = (props) => {
           </MDBCard>
 
           <div className="d-flex justify-content-end mt-5">
-            {<DIRECTION_BTN tag={["NEXT", "PREVIOUS"]} />}
+            {<DIRECTION_BTN tag={["PREVIOUS", "NEXT"]} />}
           </div>
         </form>
       </MDBCard>
@@ -198,7 +288,7 @@ export const WORK_EXPERIENCE_FORM = (props) => {
           <InputPills title="Job Description" payload={callbackFn} />
           <div className="d-flex justify-content-end">
             <MDBBtn className="btn-sm mb-5" color="dark">
-              SAVE JOB
+              ADD
             </MDBBtn>
           </div>
           {/* List */}
@@ -211,7 +301,7 @@ export const WORK_EXPERIENCE_FORM = (props) => {
           </MDBCard>
 
           <div className="d-flex justify-content-end mt-5">
-            {<DIRECTION_BTN tag={["NEXT", "PREVIOUS"]} />}
+            {<DIRECTION_BTN tag={["PREVIOUS", "NEXT"]} />}
           </div>
         </form>
       </MDBCard>
@@ -243,7 +333,8 @@ export const CERTIFICATION_FORM = (props) => {
           </MDBCard>
 
           <div className="d-flex justify-content-end mt-5">
-            {<DIRECTION_BTN tag={["PREVIOUS"]} />}
+            {/* TODO:: Submit loads a modal for user to preview input */}
+            {<DIRECTION_BTN tag={["PREVIOUS", "SUBMIT"]} />}
           </div>
         </form>
       </MDBCard>
