@@ -1,34 +1,36 @@
-import React from "react";
-import {
-  MDBInput,
-  MDBBtn,
-  MDBCard,
-  MDBTable,
-  MDBTableHead,
-  MDBTableBody,
-  MDBContainer,
-} from "mdb-react-ui-kit";
+import React, { useRef } from "react";
+import { MDBInput, MDBBtn, MDBCard } from "mdb-react-ui-kit";
+import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeftLong,
   faArrowRightLong,
-  faCancel,
-  faCheck,
-  faCheckDouble,
-  faTrash,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import InputPills from "../../../components/FeaturesInput/InputPills";
-import style from "./ProfileForm.module.css";
+import { addBio } from "../../../features/profile/profile_slice";
 
 // DIRECTION BUTTON COMPONENT
 const DIRECTION_BTN = (props) => {
   let btnContainer;
   const [next, previous] = props.tag;
+
+  const dispatch = useDispatch();
+
+  const eventHandler = (e) => {
+    e.preventDefault();
+    dispatch(addBio({ surname: "duru", firstname: "chidi" }));
+  };
+
+  // Call redux action to update profile state
+  // Steps
+  // 1. Get current page
+  // 2. call action for that page
+
   if (props.tag.length === 1) {
     if (next === "NEXT")
       btnContainer = (
-        <MDBBtn outline color="dark">
+        <MDBBtn outline color="dark" onClick={eventHandler}>
           {next} <FontAwesomeIcon icon={faArrowRightLong} />
         </MDBBtn>
       );
@@ -66,6 +68,13 @@ const Delete_BTN = (props) => {
 
 // BIO-DATA
 export const BIO_FORM = (props) => {
+  // Get values from store
+  const { surname, firstname, email, phone, country, state, jobTitle } =
+    useSelector((store) => store.profile.bio);
+
+  // Create a reference to form data
+  const surnameRef = useRef();
+
   return (
     <div className="mx-4 mt-4">
       <MDBCard className={`my-4 px-5 py-4`}>
@@ -73,18 +82,39 @@ export const BIO_FORM = (props) => {
 
         <form>
           <div className="d-sm-flex">
-            <MDBInput wrapperClass="mb-4 me-sm-2" label="Surname" />
-            <MDBInput wrapperClass="mb-4" label="First Name" />
+            <MDBInput
+              wrapperClass="mb-4 me-sm-2"
+              label="Surname"
+              ref={surnameRef}
+              defaultValue={surname}
+            />
+            <MDBInput
+              wrapperClass="mb-4"
+              label="First Name"
+              defaultValue={firstname}
+            />
           </div>
           <div className="d-sm-flex">
-            <MDBInput wrapperClass="mb-4 me-sm-2" label="Email Address" />
-            <MDBInput wrapperClass="mb-4" label="Phone" />
+            <MDBInput
+              wrapperClass="mb-4 me-sm-2"
+              label="Email Address"
+              defaultValue={email}
+            />
+            <MDBInput wrapperClass="mb-4" label="Phone" defaultValue={phone} />
           </div>
           <div className="d-sm-flex">
-            <MDBInput wrapperClass="mb-4 me-sm-2" label="Country" />
-            <MDBInput wrapperClass="mb-4" label="State" />
+            <MDBInput
+              wrapperClass="mb-4 me-sm-2"
+              label="Country"
+              defaultValue={country}
+            />
+            <MDBInput wrapperClass="mb-4" label="State" defaultValue={state} />
           </div>
-          <MDBInput wrapperClass="mb-4" label="Job Title" />
+          <MDBInput
+            wrapperClass="mb-4"
+            label="Job Title"
+            defaultValue={jobTitle}
+          />
           <div className="d-flex justify-content-end">
             {<DIRECTION_BTN tag={["NEXT"]} />}
           </div>

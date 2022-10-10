@@ -5,7 +5,7 @@ import {
   logoutAuthCtrl,
   loginAuthCtrl,
 } from "../../controllers/CtrlAuthentication";
-import AuthContext from "../../store/authContextAPI";
+import AuthContext from "../../context/authContextAPI";
 
 const Menu = (props) => {
   // Create reference to authContext global variable

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import AuthContext from "../../../store/authContextAPI";
+import AuthContext from "../../../context/authContextAPI";
 import style from "./FormNav.module.css";
 
 export const NavItem = (props) => {

@@ -7,7 +7,7 @@ import {
   faLayerGroup,
   faPowerOff,
 } from "@fortawesome/free-solid-svg-icons";
-import AuthContext from "../../store/authContextAPI";
+import AuthContext from "../../context/authContextAPI";
 import { logoutAuthCtrl } from "../../controllers/CtrlAuthentication";
 import style from "./Menu.module.css";
 

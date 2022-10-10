@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import AuthContext from "../../../store/authContextAPI";
+import AuthContext from "../../../context/authContextAPI";
 import FormNav from "../components/FormNav";
 import * as pages from "../form/ProfileForm";
 import * as action from "../formType";

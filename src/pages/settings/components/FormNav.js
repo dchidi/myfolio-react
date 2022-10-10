@@ -3,7 +3,7 @@ import { NavItem } from "./NavItem";
 import * as action from "../formType";
 
 import style from "./FormNav.module.css";
-import AuthContext from "../../../store/authContextAPI";
+import AuthContext from "../../../context/authContextAPI";
 
 const FormNav = (props) => {
   const ctx = useContext(AuthContext);
