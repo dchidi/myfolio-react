@@ -20,22 +20,18 @@ const ProfileSlice = createSlice({
       state.bio = { ...state.bio, ...action.payload };
     },
     addSkills: (state, action) => {
-      console.log(action);
-      state.skills = [...state.skills, ...action.payload];
+      state.skills = [...action.payload];
     },
 
     addEducation: (state, action) => {
-      console.log(action);
       state.education = [...state.education, ...action.payload];
     },
 
     addExperience: (state, action) => {
-      console.log(action);
       state.experience = [...state.experience, ...action.payload];
     },
 
     addCertificate: (state, action) => {
-      console.log(action);
       state.certificate = [...state.certificate, ...action.payload];
     },
   },

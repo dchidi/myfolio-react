@@ -70,7 +70,14 @@ const InputPills = (props) => {
     // get response from window.confirm
     const status = window.confirm("Click OK to delete item");
     // if status is true, delete item
-    status && document.getElementById(e.target.id).remove();
+    if (status) {
+      // Get item to remove
+      const removedValue = document.getElementById(e.target.id).innerHTML;
+      // filter it out of state and update the state
+      setItems((prev) => [...prev.filter((val) => val !== removedValue)]);
+      // remove the item from the UI
+      document.getElementById(e.target.id).remove();
+    }
   };
 
   // Manage when inputfield shows on the screen
@@ -108,10 +115,27 @@ const InputPills = (props) => {
   // is called state uplifting.
   useEffect(() => {
     // only return if items state has value
-    if (items.length > 0) {
-      props.payload(items);
-    }
+    // if (items.length > 0) {
+    props.payload(items);
+    // }
   }, [items]);
+
+  // Preload UI with value from calling component. This is optional
+  // Logic:
+  // Because the UI will only update when state changed, we created a new state
+  // that holds the items to loop through from the initData property. useEffect is used to listen for changes on x
+  const [x, setX] = useState("");
+  useEffect(() => {
+    props?.initData?.forEach((item) => {
+      setX(item);
+      // Update state without duplicates
+      setItems((prev) => [
+        ...prev,
+        ...props.initData.filter((val) => !prev.includes(val)),
+      ]);
+      createItemUI(item);
+    });
+  }, [x]);
 
   // Clear all inputed values
   const clearAllItems = () => {
@@ -146,4 +170,5 @@ const InputPills = (props) => {
   );
 };
 
-export default InputPills;
+// React.memo ensures the component only rerenders if its properties are different
+export default React.memo(InputPills);

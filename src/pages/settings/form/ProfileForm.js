@@ -20,7 +20,7 @@ const DIRECTION_BTN = (props) => {
   // Initialize dispatcher
   const dispatch = useDispatch();
 
-  const nextBtnClickHandler = (e) => {
+  const persistData = (e) => {
     // get data from formData function
     const formData = props.formDataFn(e);
     // console.log(formData);
@@ -42,10 +42,18 @@ const DIRECTION_BTN = (props) => {
         break;
       }
     }
+  };
 
-    console.log(ctx.profile_position);
-    if (ctx.profile_position < 5)
+  const nextBtnClickHandler = (e) => {
+    persistData(e);
+    ctx.profile_position < 5 &&
       ctx.updateContext({ profile_position: ctx.profile_position + 1 });
+  };
+
+  const previousBtnClickHandler = (e) => {
+    persistData(e);
+    ctx.profile_position > 1 &&
+      ctx.updateContext({ profile_position: ctx.profile_position - 1 });
   };
 
   if (props.tag.length === 1) {
@@ -57,14 +65,14 @@ const DIRECTION_BTN = (props) => {
       );
     } else
       btnContainer = (
-        <MDBBtn color="dark">
+        <MDBBtn color="dark" onclick={previousBtnClickHandler}>
           <FontAwesomeIcon icon={faArrowLeftLong} /> {tag1}
         </MDBBtn>
       );
   } else {
     btnContainer = (
       <>
-        <MDBBtn color="dark" className="me-2">
+        <MDBBtn color="dark" className="me-2" onClick={previousBtnClickHandler}>
           <FontAwesomeIcon icon={faArrowLeftLong} /> {tag1}
         </MDBBtn>
         {tag2 === "NEXT" ? (
@@ -196,20 +204,16 @@ export const BIO_FORM = (props) => {
 // SKILLS FORM
 export const SKILLS_FORM = (props) => {
   // Get values from store
-  const defaultValue = useSelector((store) => store.profile.skills);
-  // Initialize component state with default value
-  const [skills, setSkills] = useState(defaultValue);
+  const initSkillsValue = useSelector((store) => store.profile.skills);
+  let skills = initSkillsValue;
 
   // Get values from input pill component
   const callbackFn = (data) => {
-    console.log(data);
-    // update state value
-    setSkills(data);
+    skills = data;
   };
 
   // Handle form submission when next button is clicked
   const formDataHandler = (e) => {
-    // Get ref values and return them as an object
     return skills;
   };
 
@@ -217,7 +221,11 @@ export const SKILLS_FORM = (props) => {
     <div className="mx-4 mt-4">
       <MDBCard className={`my-4 px-5 py-4`}>
         <h3 className="mb-4">{props.name}</h3>
-        <InputPills title="Enter Skills" payload={callbackFn} />
+        <InputPills
+          title="Enter Skills"
+          payload={callbackFn}
+          initData={initSkillsValue}
+        />
         <div className="d-flex justify-content-end">
           {
             <DIRECTION_BTN
@@ -234,6 +242,8 @@ export const SKILLS_FORM = (props) => {
 
 // EDUCATIONAL HISTORY
 export const EDUCATION_FORM = (props) => {
+  // Handle form submission when next button is clicked
+  const formDataHandler = (e) => {};
   return (
     <div className="mx-4 mt-4">
       <MDBCard className={`my-4 px-5 py-4`}>
@@ -260,7 +270,13 @@ export const EDUCATION_FORM = (props) => {
           </MDBCard>
 
           <div className="d-flex justify-content-end mt-5">
-            {<DIRECTION_BTN tag={["PREVIOUS", "NEXT"]} />}
+            {
+              <DIRECTION_BTN
+                tag={["PREVIOUS", "NEXT"]}
+                formDataFn={formDataHandler}
+                name="EDUCATION_FORM"
+              />
+            }
           </div>
         </form>
       </MDBCard>
@@ -273,6 +289,8 @@ export const WORK_EXPERIENCE_FORM = (props) => {
   const callbackFn = (data) => {
     console.log(data);
   };
+  // Handle form submission when next button is clicked
+  const formDataHandler = (e) => {};
   return (
     <div className="mx-4 mt-4">
       <MDBCard className={`my-4 px-5 py-4`}>
@@ -301,7 +319,13 @@ export const WORK_EXPERIENCE_FORM = (props) => {
           </MDBCard>
 
           <div className="d-flex justify-content-end mt-5">
-            {<DIRECTION_BTN tag={["PREVIOUS", "NEXT"]} />}
+            {
+              <DIRECTION_BTN
+                tag={["PREVIOUS", "NEXT"]}
+                formDataFn={formDataHandler}
+                name="WORK_EXPERIENCE_FORM"
+              />
+            }
           </div>
         </form>
       </MDBCard>
@@ -311,6 +335,8 @@ export const WORK_EXPERIENCE_FORM = (props) => {
 
 // CERTIFICATIONS
 export const CERTIFICATION_FORM = (props) => {
+  // Handle form submission when next button is clicked
+  const formDataHandler = (e) => {};
   return (
     <div className="mx-4 mt-4">
       <MDBCard className={`my-4 px-5 py-4`}>
@@ -334,7 +360,13 @@ export const CERTIFICATION_FORM = (props) => {
 
           <div className="d-flex justify-content-end mt-5">
             {/* TODO:: Submit loads a modal for user to preview input */}
-            {<DIRECTION_BTN tag={["PREVIOUS", "SUBMIT"]} />}
+            {
+              <DIRECTION_BTN
+                tag={["PREVIOUS", "SUBMIT"]}
+                formDataFn={formDataHandler}
+                name="CERTIFICATION_FORM"
+              />
+            }
           </div>
         </form>
       </MDBCard>
