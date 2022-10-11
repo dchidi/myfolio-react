@@ -24,6 +24,7 @@ const Folio = (props) => {
                 src={require(`../../image/projects/prj1.png`)}
                 width="90%"
                 className={style.thumbnailBig}
+                alt="profile image"
               />
               <Link to="" className={style.link}>
                 url to web page
@@ -83,6 +84,7 @@ const Folio = (props) => {
                   src={require(`../../image/projects/prj1.png`)}
                   width="90%"
                   className={style.thumbnail}
+                  alt="profile image"
                 />
                 <p className={style.thumbnailItem}>Discount Shop</p>
               </li>
@@ -91,6 +93,7 @@ const Folio = (props) => {
                   src={require(`../../image/projects/prj1.png`)}
                   width="90%"
                   className={style.thumbnail}
+                  alt="profile image"
                 />
                 <p className={style.thumbnailItem}>Discount Shop</p>
               </li>

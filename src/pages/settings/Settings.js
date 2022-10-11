@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   MDBTabs,
   MDBTabsItem,
@@ -7,12 +6,6 @@ import {
   MDBTabsContent,
   MDBTabsPane,
 } from "mdb-react-ui-kit";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCaretDown,
-  faCaretUp,
-  faCheckDouble,
-} from "@fortawesome/free-solid-svg-icons";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import style from "./Settings.module.css";
 import Projects from "./pages/Projects";

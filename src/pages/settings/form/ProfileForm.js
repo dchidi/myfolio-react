@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import { MDBInput, MDBBtn, MDBCard } from "mdb-react-ui-kit";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +13,7 @@ import { emailValidator } from "../../../controllers/validator";
 import SettingsContext from "../../../context/settingsContext";
 
 // DIRECTION BUTTON COMPONENT
-const DIRECTION_BTN = (props) => {
+const DirectionBtn = (props) => {
   let btnContainer;
   const [tag1, tag2] = props.tag;
   const ctx = useContext(SettingsContext);
@@ -28,11 +28,11 @@ const DIRECTION_BTN = (props) => {
     // MANAGE ACTIONS PERFORMED
     switch (props.name) {
       case "BIO_FORM": {
-        // Destructure formData items
-        const { surname, firstname, email, phone, country, state, jobTitle } =
-          formData;
-        // VALIDATE INPUT
-        console.log(emailValidator(email));
+        // // Destructure formData items
+        // const { surname, firstname, email, phone, country, state, jobTitle } =
+        //   formData;
+        // // VALIDATE INPUT
+        // console.log(emailValidator(email));
         // Upadate store record using addBio action creator
         dispatch(addBio(formData));
         break;
@@ -41,6 +41,8 @@ const DIRECTION_BTN = (props) => {
         dispatch(addSkills(formData));
         break;
       }
+      default:
+        break;
     }
   };
 
@@ -188,7 +190,7 @@ export const BIO_FORM = (props) => {
           />
           <div className="d-flex justify-content-end">
             {
-              <DIRECTION_BTN
+              <DirectionBtn
                 tag={["NEXT"]}
                 formDataFn={formDataHandler}
                 name="BIO_FORM"
@@ -228,7 +230,7 @@ export const SKILLS_FORM = (props) => {
         />
         <div className="d-flex justify-content-end">
           {
-            <DIRECTION_BTN
+            <DirectionBtn
               tag={["PREVIOUS", "NEXT"]}
               formDataFn={formDataHandler}
               name="SKILLS_FORM"
@@ -271,7 +273,7 @@ export const EDUCATION_FORM = (props) => {
 
           <div className="d-flex justify-content-end mt-5">
             {
-              <DIRECTION_BTN
+              <DirectionBtn
                 tag={["PREVIOUS", "NEXT"]}
                 formDataFn={formDataHandler}
                 name="EDUCATION_FORM"
@@ -320,7 +322,7 @@ export const WORK_EXPERIENCE_FORM = (props) => {
 
           <div className="d-flex justify-content-end mt-5">
             {
-              <DIRECTION_BTN
+              <DirectionBtn
                 tag={["PREVIOUS", "NEXT"]}
                 formDataFn={formDataHandler}
                 name="WORK_EXPERIENCE_FORM"
@@ -361,7 +363,7 @@ export const CERTIFICATION_FORM = (props) => {
           <div className="d-flex justify-content-end mt-5">
             {/* TODO:: Submit loads a modal for user to preview input */}
             {
-              <DIRECTION_BTN
+              <DirectionBtn
                 tag={["PREVIOUS", "SUBMIT"]}
                 formDataFn={formDataHandler}
                 name="CERTIFICATION_FORM"
