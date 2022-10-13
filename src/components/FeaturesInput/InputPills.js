@@ -81,7 +81,7 @@ const InputPills = (props) => {
   };
 
   // Manage when inputfield shows on the screen
-  const inputFieldHandler = () => {
+  const inputFieldHandler = (e) => {
     // useState setInputPillState helps to rerender the UI when changes occurs
     setInputPillState((prev) => {
       // Only add input field if none exist

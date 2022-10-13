@@ -1,16 +1,25 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { MDBInput, MDBBtn, MDBCard } from "mdb-react-ui-kit";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeftLong,
   faArrowRightLong,
+  faCheckDouble,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import InputPills from "../../../components/FeaturesInput/InputPills";
-import { addBio, addSkills } from "../../../features/profile/profile_slice";
+import {
+  addBio,
+  addCertificate,
+  addEducation,
+  addExperience,
+  addSkills,
+} from "../../../features/profile/profile_slice";
 import { emailValidator } from "../../../controllers/validator";
 import SettingsContext from "../../../context/settingsContext";
+import { v4 as uuid } from "uuid";
+import style from "./ProfileForm.module.css";
 
 // DIRECTION BUTTON COMPONENT
 const DirectionBtn = (props) => {
@@ -41,6 +50,19 @@ const DirectionBtn = (props) => {
         dispatch(addSkills(formData));
         break;
       }
+      case "EDUCATION_FORM": {
+        //TODO:: VALIDATE INPUT
+        dispatch(addEducation(formData));
+        break;
+      }
+      case "WORK_EXPERIENCE_FORM": {
+        dispatch(addExperience(formData));
+        break;
+      }
+      case "CERTIFICATION_FORM": {
+        dispatch(addCertificate(formData));
+        break;
+      }
       default:
         break;
     }
@@ -56,6 +78,12 @@ const DirectionBtn = (props) => {
     persistData(e);
     ctx.profile_position > 1 &&
       ctx.updateContext({ profile_position: ctx.profile_position - 1 });
+  };
+
+  const submitBtnHandler = (e) => {
+    persistData(e);
+    // TODO:: call redux action creator to trigger data upload to database
+    // Load home page after save is successful
   };
 
   if (props.tag.length === 1) {
@@ -82,7 +110,9 @@ const DirectionBtn = (props) => {
             {tag2} <FontAwesomeIcon icon={faArrowRightLong} />
           </MDBBtn>
         ) : (
-          <MDBBtn color="success">{tag2}</MDBBtn>
+          <MDBBtn color="success" onClick={submitBtnHandler}>
+            {tag2}
+          </MDBBtn>
         )}
       </>
     );
@@ -94,7 +124,14 @@ const DirectionBtn = (props) => {
 const Delete_BTN = (props) => {
   return (
     <div className="d-flex justify-content-end">
-      <MDBBtn className="btn-sm px-1 py-0 mb-2" outline color="dark">
+      <MDBBtn
+        className="btn-sm px-1 py-0 mb-2"
+        outline
+        color="dark"
+        onClick={(e) => {
+          props.fn(e, props.id);
+        }}
+      >
         <FontAwesomeIcon icon={faXmark} />
       </MDBBtn>
     </div>
@@ -138,45 +175,45 @@ export const BIO_FORM = (props) => {
         <h3 className="mb-4">{props.name}</h3>
 
         <form>
-          <div className="d-sm-flex">
+          <div className="d-sm-flex mb-4">
             {/* In MDBInput inputRef is used while for regular html elements ref is
             used */}
             <MDBInput
-              wrapperClass="mb-4 me-sm-2"
+              wrapperClass="col me-sm-2"
               label="Surname"
               inputRef={surnameRef}
               defaultValue={surname}
             />
             <MDBInput
-              wrapperClass="mb-4"
+              wrapperClass="col"
               label="First Name"
               inputRef={firstnameRef}
               defaultValue={firstname}
             />
           </div>
-          <div className="d-sm-flex">
+          <div className="d-sm-flex mb-4">
             <MDBInput
-              wrapperClass="mb-4 me-sm-2"
+              wrapperClass="col me-sm-2"
               label="Email Address"
               inputRef={emailRef}
               defaultValue={email}
             />
             <MDBInput
-              wrapperClass="mb-4"
+              wrapperClass="col"
               label="Phone"
               inputRef={phoneRef}
               defaultValue={phone}
             />
           </div>
-          <div className="d-sm-flex">
+          <div className="d-sm-flex mb-4">
             <MDBInput
-              wrapperClass="mb-4 me-sm-2"
+              wrapperClass="col me-sm-2"
               label="Country"
               inputRef={countryRef}
               defaultValue={country}
             />
             <MDBInput
-              wrapperClass="mb-4"
+              wrapperClass="col"
               label="State"
               inputRef={stateRef}
               defaultValue={state}
@@ -244,32 +281,78 @@ export const SKILLS_FORM = (props) => {
 
 // EDUCATIONAL HISTORY
 export const EDUCATION_FORM = (props) => {
+  // initialize for data with store value
+  const [data, setData] = useState(
+    useSelector((store) => store.profile.education)
+  );
+  const schoolRef = useRef("");
+  const courseRef = useRef("");
+  const degreeRef = useRef("");
+  const yearRef = useRef("");
+
+  const addEducationHandler = (e) => {
+    e.preventDefault();
+    setData((prev) => [
+      ...prev,
+      {
+        id: uuid(),
+        school: schoolRef.current.value,
+        course: courseRef.current.value,
+        degree: degreeRef.current.value,
+        year: yearRef.current.value,
+      },
+    ]);
+  };
+
+  // Remove item from list
+  const deleteItem = (e, id) => {
+    e.preventDefault();
+    setData((prev) => [...data.filter((item) => item.id !== id)]);
+  };
+
   // Handle form submission when next button is clicked
-  const formDataHandler = (e) => {};
+  const formDataHandler = (e) => {
+    return data;
+  };
+
   return (
     <div className="mx-4 mt-4">
       <MDBCard className={`my-4 px-5 py-4`}>
         <h3 className="mb-4">{props.name}</h3>
 
         <form>
-          <MDBInput wrapperClass="mb-4" label="School" />
-          <MDBInput wrapperClass="mb-4" label="Course" />
-          <div className="d-flex">
-            <MDBInput wrapperClass="me-2 mb-3" label="Degree" />
-            <MDBInput wrapperClass="mb-3" label="Year" />
-          </div>
-          <div className="d-flex justify-content-end">
-            <MDBBtn className="btn-sm mb-5" color="dark">
-              ADD
+          <MDBInput wrapperClass="mb-4" label="School" inputRef={schoolRef} />
+          <MDBInput wrapperClass="mb-4" label="Course" inputRef={courseRef} />
+          <div className="d-flex mb-4">
+            <MDBInput
+              wrapperClass="col me-2"
+              label="Degree"
+              inputRef={degreeRef}
+            />
+            <MDBInput wrapperClass="col me-2" label="Year" inputRef={yearRef} />
+            <MDBBtn
+              className="col btn-sm"
+              color="dark"
+              // outline
+              onClick={addEducationHandler}
+            >
+              ADD SCHOOL
             </MDBBtn>
           </div>
+          {/* <div className="d-flex justify-content-end">
+            
+          </div> */}
           {/* List */}
-          <MDBCard className="pt-4 px-4">
-            <Delete_BTN />
-            <h3>Griffith College - Msc</h3>
-            <h3>2022</h3>
-            <p>Mechanical Engineering Services and Mathematics</p>
-          </MDBCard>
+          {data.map((item) => (
+            <MDBCard className="pt-4 px-4 mt-2" key={item.id}>
+              <Delete_BTN fn={deleteItem} id={item.id} />
+              <h3>
+                {item.school} - {item.degree}
+              </h3>
+              <h3>{item.year}</h3>
+              <p>{item.course}</p>
+            </MDBCard>
+          ))}
 
           <div className="d-flex justify-content-end mt-5">
             {
@@ -288,48 +371,112 @@ export const EDUCATION_FORM = (props) => {
 
 // WORK EXPERIENCE
 export const WORK_EXPERIENCE_FORM = (props) => {
+  const initData = useSelector((store) => store.profile.experience);
+
+  // Get values from store
+  let jobDescription = initData.jobDescriptions;
+
+  // Get values from input pill component
   const callbackFn = (data) => {
-    console.log(data);
+    jobDescription = data;
   };
+
+  // initialize for data with store value
+  const [data, setData] = useState(useSelector((store) => initData));
+  const organizationRef = useRef("");
+  const jobTitleRef = useRef("");
+  const startDateRef = useRef("");
+  const endDateRef = useRef("");
+
+  const addExperience = (e) => {
+    e.preventDefault();
+    setData((prev) => [
+      ...prev,
+      {
+        id: uuid(),
+        organization: organizationRef.current.value,
+        jobTitle: jobTitleRef.current.value,
+        startDate: startDateRef.current.value,
+        endDate: endDateRef.current.value,
+        jobDescription,
+      },
+    ]);
+  };
+
+  // Remove item from list
+  const deleteItem = (e, id) => {
+    e.preventDefault();
+    setData((prev) => [...data.filter((item) => item.id !== id)]);
+  };
+
   // Handle form submission when next button is clicked
-  const formDataHandler = (e) => {};
+  const formDataHandler = (e) => {
+    return data;
+  };
+
   return (
     <div className="mx-4 mt-4">
       <MDBCard className={`my-4 px-5 py-4`}>
         <h3 className="mb-4">{props.name}</h3>
 
-        <form>
-          <MDBInput wrapperClass="mb-4" label="Organization" />
-          <MDBInput wrapperClass="mb-4" label="Job title" />
-          <div className="d-flex">
-            <MDBInput wrapperClass="me-2 mb-3" label="Start Date" />
-            <MDBInput wrapperClass="mb-3" label="End Date" />
-          </div>
-          <InputPills title="Job Description" payload={callbackFn} />
-          <div className="d-flex justify-content-end">
-            <MDBBtn className="btn-sm mb-5" color="dark">
-              ADD
-            </MDBBtn>
-          </div>
-          {/* List */}
-          <MDBCard className="pt-4 px-4">
-            <Delete_BTN />
-            <h3>Unilever Nig Plc</h3>
+        {/* <form> */}
+        <MDBInput
+          wrapperClass="mb-4"
+          label="Organization"
+          inputRef={organizationRef}
+        />
+        <MDBInput
+          wrapperClass="mb-4"
+          label="Job title"
+          inputRef={jobTitleRef}
+        />
+        <div className="d-flex mb-4">
+          <MDBInput
+            wrapperClass="col me-2"
+            label="Start Date"
+            inputRef={startDateRef}
+          />
+          <MDBInput wrapperClass="col" label="End Date" inputRef={endDateRef} />
+        </div>
+        <InputPills
+          title="Job Description"
+          payload={callbackFn}
+          initData={jobDescription}
+        />
+        <div className="d-flex justify-content-end">
+          <MDBBtn className="mb-5 w-sm-25" color="dark" onClick={addExperience}>
+            ADD EXPERIENCE
+          </MDBBtn>
+        </div>
+        {/* TODO:: Add experience as a list of items */}
+        {data.map((item) => (
+          <MDBCard className="py-4 px-4 mt-2" key={item.id}>
+            <Delete_BTN fn={deleteItem} id={item.id} />
+            <h3>{item.organization}</h3>
             <p>
-              Data Analyst - <span>2020 - 2022</span>
+              {item.jobTitle} -{" "}
+              <span>{`${item.startDate} - ${item.endDate}`}</span>
             </p>
+            <ul className={style.experience}>
+              {item.jobDescription.map((description) => (
+                <li>
+                  <FontAwesomeIcon icon={faCheckDouble} /> {description}
+                </li>
+              ))}
+            </ul>
           </MDBCard>
+        ))}
 
-          <div className="d-flex justify-content-end mt-5">
-            {
-              <DirectionBtn
-                tag={["PREVIOUS", "NEXT"]}
-                formDataFn={formDataHandler}
-                name="WORK_EXPERIENCE_FORM"
-              />
-            }
-          </div>
-        </form>
+        <div className="d-flex justify-content-end mt-5">
+          {
+            <DirectionBtn
+              tag={["PREVIOUS", "NEXT"]}
+              formDataFn={formDataHandler}
+              name="WORK_EXPERIENCE_FORM"
+            />
+          }
+        </div>
+        {/* </form> */}
       </MDBCard>
     </div>
   );
@@ -337,40 +484,72 @@ export const WORK_EXPERIENCE_FORM = (props) => {
 
 // CERTIFICATIONS
 export const CERTIFICATION_FORM = (props) => {
+  // initialize for data with store value
+  const [data, setData] = useState(
+    useSelector((store) => store.profile.certificate)
+  );
+  const titleRef = useRef("");
+  const yearRef = useRef("");
+
+  const addCertification = (e) => {
+    e.preventDefault();
+    setData((prev) => [
+      ...prev,
+      {
+        id: uuid(),
+        title: titleRef.current.value,
+        year: yearRef.current.value,
+      },
+    ]);
+  };
+
+  // Remove item from list
+  const deleteItem = (e, id) => {
+    e.preventDefault();
+    setData((prev) => [...data.filter((item) => item.id !== id)]);
+  };
+
   // Handle form submission when next button is clicked
-  const formDataHandler = (e) => {};
+  const formDataHandler = (e) => {
+    return data;
+  };
   return (
     <div className="mx-4 mt-4">
       <MDBCard className={`my-4 px-5 py-4`}>
         <h3 className="mb-4">{props.name}</h3>
 
-        <form>
-          <MDBInput wrapperClass="mb-4" label="Title" />
-          <MDBInput wrapperClass="mb-4 col-6" label="Year Completed" />
-
-          <div className="d-flex justify-content-end">
-            <MDBBtn className="btn-sm mb-5" color="dark">
-              ADD
-            </MDBBtn>
-          </div>
-          {/* List */}
-          <MDBCard className="pt-4 px-4">
-            <Delete_BTN />
-            <h3>2022</h3>
-            <p>Oracle Certified Associate - OCA</p>
+        {/* <form> */}
+        <MDBInput wrapperClass="mb-4" label="Title" inputRef={titleRef} />
+        <div className="d-flex mb-4">
+          <MDBInput
+            wrapperClass="col me-sm-2"
+            label="Year Completed"
+            inputRef={yearRef}
+          />
+          <MDBBtn className="btn-sm" color="dark" onClick={addCertification}>
+            ADD CERTIFICATION
+          </MDBBtn>
+        </div>
+        {/* List */}
+        {data.map((item) => (
+          <MDBCard className="pt-4 px-4 mt-2" key={item.id}>
+            <Delete_BTN fn={deleteItem} id={item.id} />
+            <h3>{item.year}</h3>
+            <p>{item.title}</p>
           </MDBCard>
+        ))}
 
-          <div className="d-flex justify-content-end mt-5">
-            {/* TODO:: Submit loads a modal for user to preview input */}
-            {
-              <DirectionBtn
-                tag={["PREVIOUS", "SUBMIT"]}
-                formDataFn={formDataHandler}
-                name="CERTIFICATION_FORM"
-              />
-            }
-          </div>
-        </form>
+        <div className="d-flex justify-content-end mt-5">
+          {/* TODO:: Submit loads a modal for user to preview input */}
+          {
+            <DirectionBtn
+              tag={["PREVIOUS", "SUBMIT"]}
+              formDataFn={formDataHandler}
+              name="CERTIFICATION_FORM"
+            />
+          }
+        </div>
+        {/* </form> */}
       </MDBCard>
     </div>
   );

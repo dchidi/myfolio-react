@@ -1,17 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PROFILE_DATA } from "../DUMMY_DATA";
 
-const initialState = {
-  bio: {
-    // surname: "DURU",
-    // firstname: "CHIDI",
-    // email: "tchidi4real@gmail.com",
-    // phone: "0899516678",
-  },
-  skills: [],
-  education: [],
-  experience: [],
-  certificate: [],
-};
+// const initialState = {
+//   bio: {},
+//   skills: [],
+//   education: [],
+//   experience: [],
+//   certificate: [],
+// };
+const initialState = PROFILE_DATA;
 const ProfileSlice = createSlice({
   name: "profile",
   initialState,
@@ -24,15 +21,15 @@ const ProfileSlice = createSlice({
     },
 
     addEducation: (state, action) => {
-      state.education = [...state.education, ...action.payload];
+      state.education = [...action.payload];
     },
 
     addExperience: (state, action) => {
-      state.experience = [...state.experience, ...action.payload];
+      state.experience = [...action.payload];
     },
 
     addCertificate: (state, action) => {
-      state.certificate = [...state.certificate, ...action.payload];
+      state.certificate = [...action.payload];
     },
   },
   extraReducers: {},
