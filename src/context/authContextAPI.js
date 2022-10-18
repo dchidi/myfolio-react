@@ -7,6 +7,7 @@ const defaultData = {
   refreshToken: null,
   deviceId: null,
   message: null,
+  // mobileMenuState: false,
 };
 // Persist data on browser storage
 const local_storage = JSON.parse(localStorage.getItem("myfolio_auth"));

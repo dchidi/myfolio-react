@@ -15,12 +15,10 @@ const UpdatePassword = (props) => {
       <h3 className="mb-4">RETRIEVE PASSWORD</h3>
 
       {/* <form> */}
-      <div className="col-sm-8 col-md-6">
+      <div className="col-sm-10 col-md-8 col-lg-6">
         <MDBInput wrapperClass="mb-4" label="Email" />
 
-        {/* <div className="d-flex justify-content-end"> */}
         <MDBBtn color="dark">RETRIEVE</MDBBtn>
-        {/* </div> */}
       </div>
       {/* </form> */}
     </MDBCard>

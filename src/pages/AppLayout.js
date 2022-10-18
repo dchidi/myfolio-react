@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Menu from "../components/menu/Menu";
 import FloatingMenu from "../components/menu/FloatingMenu";
 import Dashboard from "./dashboard/Dashboard";
@@ -13,6 +13,7 @@ const AppLayout = (props) => {
     folio: <Folio />,
     settings: <Settings />,
   };
+  // set mobile menu to close
   return (
     <>
       {/* props.page tracks menu to highlight as active */}

@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { MDBInput, MDBBtn, MDBCard } from "mdb-react-ui-kit";
+import { MDBInput, MDBBtn, MDBCard, MDBFile } from "mdb-react-ui-kit";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -32,7 +32,6 @@ const DirectionBtn = (props) => {
   const persistData = (e) => {
     // get data from formData function
     const formData = props.formDataFn(e);
-    // console.log(formData);
 
     // MANAGE ACTIONS PERFORMED
     switch (props.name) {
@@ -138,11 +137,28 @@ const Delete_BTN = (props) => {
   );
 };
 
+const clearForm = (arg) => {
+  arg.forEach((x) => {
+    x.current.value = "";
+  });
+};
+
 // BIO-DATA
 export const BIO_FORM = (props) => {
   // Get values from store
-  const { surname, firstname, email, phone, country, state, jobTitle } =
-    useSelector((store) => store.profile.bio);
+  const {
+    surname,
+    firstname,
+    email,
+    phone,
+    country,
+    state,
+    jobTitle,
+    profileImage,
+    linkedInUrl,
+    twitterUrl,
+    gitHubUrl,
+  } = useSelector((store) => store.profile.bio);
 
   // Create a reference to input values in form
   const surnameRef = useRef("");
@@ -152,6 +168,10 @@ export const BIO_FORM = (props) => {
   const countryRef = useRef("");
   const stateRef = useRef("");
   const jobTitleRef = useRef("");
+  const profileImageRef = useRef("");
+  const linkedInUrlRef = useRef("");
+  const twitterUrlRef = useRef("");
+  const gitHubUrlRef = useRef("");
 
   // Handle form submission when next button is clicked
   const formDataHandler = (e) => {
@@ -166,6 +186,10 @@ export const BIO_FORM = (props) => {
       country: countryRef.current.value,
       state: stateRef.current.value,
       jobTitle: jobTitleRef.current.value,
+      profileImage: profileImageRef.current.value,
+      linkedInUrl: linkedInUrlRef.current.value,
+      twitterUrl: twitterUrlRef.current.value,
+      gitHubUrl: gitHubUrlRef.current.value,
     };
   };
 
@@ -175,45 +199,45 @@ export const BIO_FORM = (props) => {
         <h3 className="mb-4">{props.name}</h3>
 
         <form>
-          <div className="d-sm-flex mb-4">
+          <div className="d-sm-flex">
             {/* In MDBInput inputRef is used while for regular html elements ref is
             used */}
             <MDBInput
-              wrapperClass="col me-sm-2"
+              wrapperClass="col me-sm-2 mb-4"
               label="Surname"
               inputRef={surnameRef}
               defaultValue={surname}
             />
             <MDBInput
-              wrapperClass="col"
+              wrapperClass="col mb-4"
               label="First Name"
               inputRef={firstnameRef}
               defaultValue={firstname}
             />
           </div>
-          <div className="d-sm-flex mb-4">
+          <div className="d-sm-flex">
             <MDBInput
-              wrapperClass="col me-sm-2"
+              wrapperClass="col me-sm-2 mb-4"
               label="Email Address"
               inputRef={emailRef}
               defaultValue={email}
             />
             <MDBInput
-              wrapperClass="col"
+              wrapperClass="col mb-4"
               label="Phone"
               inputRef={phoneRef}
               defaultValue={phone}
             />
           </div>
-          <div className="d-sm-flex mb-4">
+          <div className="d-sm-flex">
             <MDBInput
-              wrapperClass="col me-sm-2"
+              wrapperClass="col me-sm-2 mb-4"
               label="Country"
               inputRef={countryRef}
               defaultValue={country}
             />
             <MDBInput
-              wrapperClass="col"
+              wrapperClass="col mb-4"
               label="State"
               inputRef={stateRef}
               defaultValue={state}
@@ -225,6 +249,33 @@ export const BIO_FORM = (props) => {
             inputRef={jobTitleRef}
             defaultValue={jobTitle}
           />
+          <MDBInput
+            wrapperClass="mb-4"
+            label="LinkedIn Url"
+            inputRef={linkedInUrlRef}
+            defaultValue={linkedInUrl}
+          />
+          <MDBInput
+            wrapperClass="mb-4"
+            label="Twitter Url"
+            inputRef={twitterUrlRef}
+            defaultValue={twitterUrl}
+          />
+          <MDBInput
+            wrapperClass="mb-4"
+            label="GitHub Url"
+            inputRef={gitHubUrlRef}
+            defaultValue={gitHubUrl}
+          />
+          <MDBFile
+            label="Upload Profile Image"
+            size="lg"
+            id="formFileLg"
+            className="mb-4"
+            inputRef={profileImageRef}
+            src={profileImage}
+          />
+
           <div className="d-flex justify-content-end">
             {
               <DirectionBtn
@@ -302,6 +353,7 @@ export const EDUCATION_FORM = (props) => {
         year: yearRef.current.value,
       },
     ]);
+    clearForm([schoolRef, courseRef, degreeRef, yearRef]);
   };
 
   // Remove item from list
@@ -321,22 +373,37 @@ export const EDUCATION_FORM = (props) => {
         <h3 className="mb-4">{props.name}</h3>
 
         <form>
-          <MDBInput wrapperClass="mb-4" label="School" inputRef={schoolRef} />
-          <MDBInput wrapperClass="mb-4" label="Course" inputRef={courseRef} />
+          <MDBInput
+            wrapperClass="mb-4"
+            label="School"
+            inputRef={schoolRef}
+            defaultValue=""
+          />
+          <MDBInput
+            wrapperClass="mb-4"
+            label="Course"
+            inputRef={courseRef}
+            defaultValue=""
+          />
           <div className="d-flex mb-4">
             <MDBInput
-              wrapperClass="col me-2"
+              wrapperClass="col-4 me-2"
               label="Degree"
               inputRef={degreeRef}
+              defaultValue=""
             />
-            <MDBInput wrapperClass="col me-2" label="Year" inputRef={yearRef} />
+            <MDBInput
+              wrapperClass="col-4 me-2"
+              label="Year"
+              inputRef={yearRef}
+              defaultValue=""
+            />
             <MDBBtn
-              className="col btn-sm"
+              className="col-3 btn-sm"
               color="dark"
-              // outline
               onClick={addEducationHandler}
             >
-              ADD SCHOOL
+              ADD
             </MDBBtn>
           </div>
           {/* <div className="d-flex justify-content-end">
@@ -401,6 +468,8 @@ export const WORK_EXPERIENCE_FORM = (props) => {
         jobDescription,
       },
     ]);
+    clearForm([organizationRef, jobTitleRef, startDateRef, endDateRef]);
+    jobDescription = [];
   };
 
   // Remove item from list
@@ -424,19 +493,27 @@ export const WORK_EXPERIENCE_FORM = (props) => {
           wrapperClass="mb-4"
           label="Organization"
           inputRef={organizationRef}
+          defaultValue=""
         />
         <MDBInput
           wrapperClass="mb-4"
           label="Job title"
           inputRef={jobTitleRef}
+          defaultValue=""
         />
         <div className="d-flex mb-4">
           <MDBInput
             wrapperClass="col me-2"
             label="Start Date"
             inputRef={startDateRef}
+            defaultValue=""
           />
-          <MDBInput wrapperClass="col" label="End Date" inputRef={endDateRef} />
+          <MDBInput
+            wrapperClass="col"
+            label="End Date"
+            inputRef={endDateRef}
+            defaultValue=""
+          />
         </div>
         <InputPills
           title="Job Description"
@@ -459,7 +536,7 @@ export const WORK_EXPERIENCE_FORM = (props) => {
             </p>
             <ul className={style.experience}>
               {item.jobDescription.map((description) => (
-                <li>
+                <li key={description}>
                   <FontAwesomeIcon icon={faCheckDouble} /> {description}
                 </li>
               ))}
@@ -501,6 +578,7 @@ export const CERTIFICATION_FORM = (props) => {
         year: yearRef.current.value,
       },
     ]);
+    clearForm([titleRef, yearRef]);
   };
 
   // Remove item from list
@@ -519,15 +597,21 @@ export const CERTIFICATION_FORM = (props) => {
         <h3 className="mb-4">{props.name}</h3>
 
         {/* <form> */}
-        <MDBInput wrapperClass="mb-4" label="Title" inputRef={titleRef} />
+        <MDBInput
+          wrapperClass="mb-4"
+          label="Title"
+          inputRef={titleRef}
+          defaultValue=""
+        />
         <div className="d-flex mb-4">
           <MDBInput
-            wrapperClass="col me-sm-2"
+            wrapperClass="col-8 me-2"
             label="Year Completed"
             inputRef={yearRef}
+            defaultValue=""
           />
           <MDBBtn className="btn-sm" color="dark" onClick={addCertification}>
-            ADD CERTIFICATION
+            ADD
           </MDBBtn>
         </div>
         {/* List */}

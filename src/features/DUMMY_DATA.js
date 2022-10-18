@@ -7,6 +7,7 @@ export const PROFILE_DATA = {
     country: "Ireland",
     state: "Dublin",
     jobTitle: "Full-Stack Engineer",
+    profileImage: "samplethings.jpg",
   },
   skills: ["ReactJS", "JavaScript", "Python", "PHP", "Bootstrap", "HTML & CSS"],
   education: [

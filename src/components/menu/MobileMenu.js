@@ -22,12 +22,16 @@ import style from "./Menu.module.css";
 
 const MobileMenu = (props) => {
   // Manage toggle state
-  const [showBasic, setShowBasic] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   // Logout user
   const _logout = () => {
-    setShowBasic(!showBasic);
+    setOpenMenu(!openMenu);
     props.logout();
+  };
+
+  const menuClicked = () => {
+    setOpenMenu(!openMenu);
   };
 
   return (
@@ -64,15 +68,15 @@ const MobileMenu = (props) => {
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
-              onClick={() => setShowBasic(!showBasic)}
+              onClick={() => setOpenMenu(!openMenu)}
             >
-              {showBasic && <FontAwesomeIcon icon={faXmark} />}
-              {!showBasic && <FontAwesomeIcon icon={faBars} />}
+              {openMenu && <FontAwesomeIcon icon={faXmark} />}
+              {!openMenu && <FontAwesomeIcon icon={faBars} />}
             </MDBNavbarToggler>
           </>
         )}
 
-        <MDBCollapse navbar show={showBasic}>
+        <MDBCollapse navbar show={openMenu}>
           <hr />
           <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
             <MDBNavbarItem>
@@ -83,6 +87,7 @@ const MobileMenu = (props) => {
                     ? `${style.nav} ${style.active}`
                     : `${style.nav}`
                 }
+                onClick={menuClicked}
               >
                 <FontAwesomeIcon icon={faHouseUser} />{" "}
                 <span className="ps-2">Dashboard</span>
@@ -96,6 +101,7 @@ const MobileMenu = (props) => {
                     ? `${style.nav} ${style.active}`
                     : `${style.nav}`
                 }
+                onClick={menuClicked}
               >
                 <FontAwesomeIcon icon={faLayerGroup} />{" "}
                 <span className="ps-2">Folio</span>
@@ -109,6 +115,7 @@ const MobileMenu = (props) => {
                     ? `${style.nav} ${style.active}`
                     : `${style.nav}`
                 }
+                onClick={menuClicked}
               >
                 <FontAwesomeIcon icon={faGears} />{" "}
                 <span className="ps-2">Settings</span>
